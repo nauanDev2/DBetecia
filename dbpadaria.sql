@@ -1,16 +1,13 @@
 -- apagando banco de dados se existir
 drop database dbpadaria;
+
 -- criando banco de dados 
 create database dbpadaria;
+
 -- acessar o banco de dados
-use dbpadaria;
+use dbpadaria; 
+
 --criando as tabelas no banco de dados
-
-create table tbGenero(
-codGen int not null auto_increment,
-nome varchar(100),
-primary key(codGen));
-
 create table tbFornecedores(
 codForn int not null auto_increment,
 nome varchar(100),
@@ -22,7 +19,7 @@ create table tbClientes(
 codCli int not null auto_increment,
 nome varchar (100) not null,
 cpf char(14) not null unique,
-email varchar(100),
+email varchar(100) unique,
 primary key(codCli));
 
 create table tbFuncionarios(
@@ -33,9 +30,9 @@ telCel char(10),
 dataNasc datetime,
 salario decimal(9,2) default 0 check(salario >= 0),
 sexo char(1) default "F" check(sexo in("F","M")),
-codGen int not null,
-primary key(codFunc),
-foreign key(codGen)references tbGenero(codGen));
+primary key(codFunc));
+
+
 
 create table tbUsuarios(
 codUsu int not null auto_increment,
@@ -81,3 +78,34 @@ desc tbFuncionarios;
 desc tbVendas;
 desc tbClientes;
 desc tbProdutos;
+
+--inserindo registros nas tabelas
+
+--tbClientes
+insert into tbClientes(nome,cpf,email)
+	values('Nauan Dev1','12345678912', 'nauanDev1@gmail.com');
+
+insert into tbClientes(nome,cpf,email)	
+	values('Mauro Alves','98765432198', 'mauro@gmail.com');
+
+--tbFuncionarios
+insert into tbFuncionarios(nome,email,telCel,dataNasc, salario, sexo);
+	values('Vitu da Mecanica', 'vitu@mecaninca.com.br', '11972348920', '2005-03-15', 500.00, 'M');
+
+--Fornecedores
+insert into tbFornecedores(nome, email, telCel);
+	values('coronapack', 'coronapack@corana.com.br', '40028922');
+
+insert into tbFornecedores(nome, email, telCel);
+	values('therma', 'therma@therma.com.br', '525252989');	
+
+--tbUsuarios
+insert into tbUsuarios(nome, senha, codFunc),
+	values('Igor das Tias', '2212', 1);
+
+--visualizando registros nas tabelas
+
+select * from tbClientes;
+select * from tbFornecedores;
+select * from tbFuncionarios;
+select * from tbUsuarios;	
